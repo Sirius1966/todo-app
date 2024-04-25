@@ -1,20 +1,39 @@
-import PySimpleGUI as sg
+import PySimpleGUI as Sg
+from modules import zip_creator as zc
 
-label1 = sg.Text("Select Files to compress: ")
-input1 = sg.Input()
-choose_button1 = sg.FileBrowse("Choose")
 
-label2 = sg.Text("Select destination folder: ")
-input2 = sg.Input()
-choose_button2 = sg.FolderBrowse("Choose")
+label1 = Sg.Text("Select Files to compress: ")
+input1 = Sg.Input(key="Input1")
+choose_button1 = Sg.FilesBrowse("Choose", key="files")
 
-compress_button = sg.Button("Compress")
+label2 = Sg.Text("Select destination folder: ")
+input2 = Sg.Input(key="Input2")
+choose_button2 = Sg.FolderBrowse("Choose", key="folder")
 
-window = sg.Window("File Compressor",
+compress_button = Sg.Button("Compress")
+output_label = Sg.Text(key="output", text_color="green")
+
+window = Sg.Window("File Compressor",
                    layout=[[label1, input1, choose_button1],
                            [label2, input2, choose_button2],
-                           [compress_button],
+                           [compress_button, output_label],
                            ])
+while True:
+    event, values = window.read()
+    print(event)
+    # values output:
+    # {'Input1': '/Users/michaeldr.hegner/Documents/Python/3_txt_files/date_source.txt;
+    # /Users/michaeldr.hegner/Documents/Python/3_txt_files/clients.txt',
+    # 'files': '/Users/michaeldr.hegner/Documents/Python/3_txt_files/date_source.txt;
+    # /Users/michaeldr.hegner/Documents/Python/3_txt_files/clients.txt',
+    # 'Input2': '/Users/michaeldr.hegner/Documents/Python/4_compressed_files',
+    # 'folder': '/Users/michaeldr.hegner/Documents/Python/4_compressed_files'}
+    print(values)
+    filepaths = values["files"].split(";")  # -> list
+    folder = values["folder"]  # -> str
+    zc.make_zip_file(filepaths, folder, "test1_zip.zip")
+    window["output"].update(value="Compression completed")
 
-window.read()
+
+
 window.close()

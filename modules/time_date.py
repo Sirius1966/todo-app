@@ -20,9 +20,33 @@ It is Monday 22.April.2024 18:40:17 Uhr
 
 
 def get_time_date():
-    now = time.strftime("%a %A %b %B %d %D %H %M %S %y %Y %x %X")
-    print("It is ", now)
+    """
+    Returns a string with the actual date and the actual time.
+    :return: now: str: e.g. 28.April.2024 07:45:07
+    """
+    now = time.strftime("%d.%B.%Y %H:%M:%S")
+    return now
+
+
+def get_time():
+    """
+    Returns a string with the actual time with hours, minutes and seconds separated by a colon.
+    :return: now: str: e.g. 07:45:07
+    """
+    now = time.strftime("%H:%M:%S")
+    return now
+
+
+def get_date():
+    """
+    Returns a string with the actual date.
+    :return: now: str: e.g. 28.April.2024
+    """
+    now = time.strftime("%d.%B.%Y")
+    return now
 
 
 if __name__ == "__main__":
-    get_time_date()
+    print(get_time_date())
+    print(get_time())
+    print(get_date())

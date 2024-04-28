@@ -22,8 +22,21 @@ def make_zip_file(filepaths: list, dest_dir: str, name_of_file: str):
             archive.write(filepath, arcname=filepath.name)
 
 
+def extract_zip_file(zip_file_path: str, dest_dir: str):
+    """
+    It will extract the zip file and put the extracted files to the destination folder
+    :param zip_file_path: str: absolute path to the zip file as a string
+    :param dest_dir: str: destination folder's absolute path as a string
+    :return: None
+    """
+    with zipfile.ZipFile(zip_file_path, "r") as zip_file:
+        zip_file.extractall(dest_dir)
+
+
 if __name__ == "__main__":
-    make_zip_file(filepaths=["../files/todos.txt", "../files/weather.csv"],
-                  dest_dir="../files",
-                  name_of_file="compress.zip")
+    extract_zip_file("/Users/michaeldr.hegner/PycharmProjects/Udemy_Python_in_60_days/files/compressed.zip",
+                     '/Users/michaeldr.hegner/PycharmProjects/Udemy_Python_in_60_days/files')
+    # make_zip_file(filepaths=["../files/todos.txt", "../files/weather.csv"],
+    #             dest_dir="../files",
+    #              name_of_file="compress.zip")
 

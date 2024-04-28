@@ -1,5 +1,5 @@
 import PySimpleGUI as Sg
-from modules import zip_creator as zc
+from modules import zip as zc
 
 
 label1 = Sg.Text("Select Files to compress: ")
@@ -33,7 +33,6 @@ while True:
     folder = values["folder"]  # -> str
     zc.make_zip_file(filepaths, folder, "test1_zip.zip")
     window["output"].update(value="Compression completed")
-
 
 
 window.close()

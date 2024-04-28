@@ -10,7 +10,13 @@ Sg.theme("BlueMono")
 clock = Sg.Text("", key="clock")
 label = Sg.Text("Type in a to-do")
 input_box = Sg.InputText(tooltip="Enter todo", key="todo")
-add_button = Sg.Button("Add")
+# issues about images as button:
+# 1. size 2. Image is disappearing, when the mouse hovers over the image 3.tooltip
+add_button = Sg.Button(image_source="../images/add.png",
+                       size=5,
+                       mouseover_colors="LightBlue2",
+                       tooltip="Add todo",
+                       key="Add")
 list_box = Sg.Listbox(values=functions.get_todos(),
                       key='todos',
                       enable_events=True,
@@ -32,12 +38,16 @@ window = Sg.Window('My To-Do App',
 while True:
     # ('Add', {'to_do': 'hi'}) event = 'Add' values = {'to_do': 'hi'}
     event, values = window.read(timeout=200)
-    window["clock"].update(value=time.strftime("%d.%b.%Y %H:%M:%S"))
-    # print(1, "EVENT: ", event)
-    # print(2, "VALUES: ", values)
-    # print(3, "INPUT BOX ITEMS: ", values["todos"])
+
+    # print(1, "EVENT: ", event)  # -> str
+    # print(2, "VALUES: ", values)  # -> dictionary
+    # print(3, "INPUT BOX ITEMS: ", values["todos"])  # from values select keyword/key="todos" -> listbox widget
 
     match event:
+
+        case "__TIMEOUT__":
+            window["clock"].update(value=time.strftime("%d.%b.%Y %H:%M:%S"))
+
         case "Add":
             todos = functions.get_todos()
             new_todo = values["todo"] + "\n"
@@ -66,6 +76,7 @@ while True:
                 functions.write_todos(todos)
                 window['todos'].update(values=todos)
                 window['todo'].update(value='')
+
             except IndexError:
                 Sg.popup("Please Select an item first", font=("Helvetica", 20))
 
@@ -74,6 +85,7 @@ while True:
 
         case "todos":
             window["todo"].update(value=values["todos"][0])
+
         case Sg.WINDOW_CLOSED:
             break
 

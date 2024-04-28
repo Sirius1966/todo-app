@@ -1,0 +1,13 @@
+0. Your Idea -> Description in a text file
+
+1. Design the frontend on a sheet of paper
+   or a software to built GUI or Web-App -> picture
+
+2. Code the frontend: Make the window and the widgets
+
+3. Code the backend: BACKEND in a separate .py file
+   Classes, function etc and test it with
+   if __name__ == "__main__"
+
+4. Finish up: Connecting Frontend with the BACKEND
+
